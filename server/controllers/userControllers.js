@@ -19,38 +19,47 @@ const {response} = require('express')
 
 const registerUser = async (req, res, next) => {
    try {
-        const {name, email, password, password2} = req.body;
-        if(!name || !email || !password) {
-            return next(new HttpError("All fields requires.", 422))
-        }
+       const { name, email, password, password2 } = req.body;
+       if (!name || !email || !password) {
+           return next(new HttpError("All fields are required.", 422));
+       }
 
-        const newEmail = email.toLowerCase()
+       // Regular expression for email validation
+       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+       if (!emailRegex.test(email)) {
+           return next(new HttpError("Invalid email address.", 422));
+       }
 
+       const newEmail = email.toLowerCase();
 
-        const emailExists = await User.findOne({email: newEmail})
-        if(emailExists) {
-            return next(new HttpError("Email already exists.", 422))
-        }
+       const emailExists = await User.findOne({ email: newEmail });
+       if (emailExists) {
+           return next(new HttpError("Email already exists.", 422));
+       }
 
+       if (password.trim().length < 6) {
+           return next(new HttpError("Password should be at least 6 characters.", 422));
+       }
 
-        if((password.trim()).length < 6) {
-            return next(new HttpError("Password should be atleast 6 characters.", 422))
-        }
+       // Password complexity check
+       const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{6,}$/;
+       if (!passwordRegex.test(password)) {
+           return next(new HttpError("Password must contain at least one special character, one number, and one uppercase letter.", 422));
+       }
 
-        if(password != password2){
-            return next(new HttpError("Password do not match.", 422))
-        }
+       if (password !== password2) {
+           return next(new HttpError("Passwords do not match.", 422));
+       }
 
-
-        const salt = await bcrypt.genSalt(10)
-        const hashedPass = await bcrypt.hash(password, salt);
-        const newUser = await User.create({name, email: newEmail, password: hashedPass})
-        res.status(201).json(`New User ${newUser.email} registered.`)
-
+       const salt = await bcrypt.genSalt(10);
+       const hashedPass = await bcrypt.hash(password, salt);
+       const newUser = await User.create({ name, email: newEmail, password: hashedPass });
+       res.status(201).json(`New User ${newUser.email} registered.`);
    } catch (error) {
-    return next(new HttpError("User Registration failed.", 422))
+       return next(new HttpError("User registration failed.", 422));
    }
-}
+};
+
 
 
 
@@ -189,46 +198,59 @@ const changeAvatar = async (req, res, next) => {
 // PROTECTED
 const editUser = async (req, res, next) => {
    try {
-    const {name, email, currentPassword, newPassword, confirmNewPassword} = req.body;
-    if(!name || !email || !currentPassword || !newPassword) {
-        return next(new HttpError("All fields required.", 422))
-    }
-
-    // get user from database
-    const user = await User.findById(req.user.id);
-    if(!user) {
-        return next(new HttpError("User not found.", 403))
-    }
-
-    // make sure new email doesn't already exist
-    const emailExists = await User.findOne({email});
-    // we want to update other details with/without changing the email (which is a unique id because we use it to login).
-    if(emailExists && (emailExists._id != req.user.id)) {
-        return next(new HttpError("Email already exist.", 422))
-    }
-    // compare current password to db password
-    const validateUserPassword = await bcrypt.compare(currentPassword, user.password);
-    if(!validateUserPassword) {
-        return next(new HttpError("Invalid current password", 422))
-    }
-
-    // compare new password 
-    if(newPassword !== confirmNewPassword) {
-        return next(new HttpError("New password do not match", 422))
-    }
-
-    // hash new password
-    const salt = await bcrypt.genSalt(10)
-    const hashed = await bcrypt.hash(newPassword, salt);
-
-    // update user info in database
-    const newInfo = await User.findByIdAndUpdate(req.user.id, {name, email, password: hashed}, {new: true})
-    res.status(200).json(newInfo)
-
+     const { name, email, currentPassword, newPassword, confirmNewPassword } = req.body;
+     if (!name || !email || !currentPassword || !newPassword) {
+       return next(new HttpError("All fields required.", 422));
+     }
+ 
+    
+ 
+     // Validate email format
+     const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+     if (!emailRegex.test(email)) {
+       return next(new HttpError("Invalid email format.", 422));
+     }
+ 
+     // get user from database
+     const user = await User.findById(req.user.id);
+     if (!user) {
+       return next(new HttpError("User not found.", 403));
+     }
+ 
+     // make sure new email doesn't already exist
+     const emailExists = await User.findOne({ email });
+     // we want to update other details with/without changing the email (which is a unique id because we use it to login).
+     if (emailExists && (emailExists._id != req.user.id)) {
+       return next(new HttpError("Email already exist.", 422));
+     }
+       // Check if new password meets requirements
+     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+     if (!passwordRegex.test(newPassword)) {
+       return next(new HttpError("New password must have at least one lowercase letter, one uppercase letter, one number, one special character, and be at least 8 characters long.", 422));
+     }
+     // compare current password to db password
+     const validateUserPassword = await bcrypt.compare(currentPassword, user.password);
+     if (!validateUserPassword) {
+       return next(new HttpError("Invalid current password", 422));
+     }
+ 
+     // compare new password
+     if (newPassword !== confirmNewPassword) {
+       return next(new HttpError("New password do not match", 422));
+     }
+ 
+     // hash new password
+     const salt = await bcrypt.genSalt(10);
+     const hashed = await bcrypt.hash(newPassword, salt);
+ 
+     // update user info in database
+     const newInfo = await User.findByIdAndUpdate(req.user.id, { name, email, password: hashed }, { new: true });
+     res.status(200).json(newInfo);
+ 
    } catch (error) {
-    return next(new HttpError(error))
+     return next(new HttpError(error));
    }
-}
+ }
 
 
 

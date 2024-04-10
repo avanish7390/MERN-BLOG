@@ -18,7 +18,7 @@ const UserProfile = () => {
   const [isAvatarTouched, setIsAvatarTouched] = useState(false)
 
   const navigate = useNavigate()
-  
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const {currentUser} = useContext(UserContext)
   const token = currentUser?.token;
 
@@ -54,6 +54,9 @@ const changeAvatarHandler = async () => {
    }
 }
 
+const togglePasswordVisibility = () => {
+  setPasswordVisible(!passwordVisible)
+}
 
 const updateUserDetails = async (e) => {
   e.preventDefault();
@@ -105,9 +108,18 @@ const updateUserDetails = async (e) => {
                   {error && <p className="form__error-message">{error}</p>}
                    <input type="text" placeholder='Full Name' value={name} onChange={e => setName(e.target.value)} />
                    <input type="text" placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} />
-                   <input type="password" placeholder='Current Password' value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
-                   <input type="password" placeholder='New Password' value={newPassword} onChange={e => setNewPassword(e.target.value)} />
-                   <input type="password" placeholder='Confirm New Password' value={confirmNewPassword} onChange={e => setConfirmNewPassword(e.target.value)} />
+                   <div className="password-input">
+                   <input type={passwordVisible? "text" : "password"} placeholder='Current Password' value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
+                   <span className={`eye-icon ${passwordVisible? "visible" : ""}`} onClick={togglePasswordVisibility}>👁</span>
+                   </div>
+                   <div className="password-input">
+                   <input type={passwordVisible? "text" : "password"} placeholder='New Password' value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+                   <span className={`eye-icon ${passwordVisible? "visible" : ""}`} onClick={togglePasswordVisibility}></span>
+                   </div>
+                   <div className="password-input">
+                   <input type={passwordVisible? "text" : "password"} placeholder='Confirm New Password' value={confirmNewPassword} onChange={e => setConfirmNewPassword(e.target.value)} />
+                   <span className={`eye-icon ${passwordVisible? "visible" : ""}`} onClick={togglePasswordVisibility}></span>
+                   </div>
                    <button type="submit" className='btn primary'>Update details</button>
                  </form>
         </div>

@@ -2,8 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-
-const Register = () =>{
+const Register = () => {
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -11,35 +10,34 @@ const Register = () =>{
     password2: ''
   })
   const [error, setError] = useState('')
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const navigate = useNavigate()
 
-  const changeInputHandler = (e) =>{
+  const changeInputHandler = (e) => {
     setUserData(prevState => {
-      return {...prevState, [e.target.name]: e.target.value}
-
+      return {...prevState, [e.target.name]: e.target.value }
     })
-
   }
 
-  const registerUser = async (e) =>{
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible)
+  }
+
+  const registerUser = async (e) => {
     e.preventDefault()
     setError('')
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, userData)
       const newUser = await response.data;
       console.log(newUser);
-      if(!newUser){
+      if (!newUser) {
         setError("Could not register user. Please try again.")
       }
       navigate('/login')
-      
     } catch (err) {
       setError(err.response.data.message)
-      
     }
-
   }
-
 
   return (
     <section className="register">
@@ -49,15 +47,19 @@ const Register = () =>{
           {error && <p className="form__error-message">{error}</p>}
           <input type="text" placeholder='Full Name' name='name' value={userData.name} onChange={changeInputHandler} />
           <input type="text" placeholder='Email' name='email' value={userData.email} onChange={changeInputHandler} />
-          <input type="password" placeholder='password' name='password' value={userData.password} onChange={changeInputHandler} />
-          <input type="password" placeholder='Confirm password' name='password2' value={userData.password2} onChange={changeInputHandler} />
+          <div className="password-input">
+            <input type={passwordVisible? "text" : "password"} placeholder='Password' name='password' value={userData.password} onChange={changeInputHandler} />
+            <span className={`eye-icon ${passwordVisible? "visible" : ""}`} onClick={togglePasswordVisibility}>👁</span>
+          </div>
+          <div className="password-input">
+          <input type={passwordVisible? "text" : "password"} placeholder='Confirm password' name='password2' value={userData.password2} onChange={changeInputHandler} />
+          <span className={`eye-icon ${passwordVisible? "visible" : ""}`} onClick={togglePasswordVisibility}></span>
+          </div>
           <button type="submit" className='btn primary'>Register</button>
-          
         </form>
         <small>Already have an account?<Link to="/login">Sign in</Link></small>
       </div>
     </section>
-    
   )
 }
 
