@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import OAuth from '../components/OAuth.jsx';
 import { UserContext } from '../context/userContext.js';
 
 const Login = () => {
@@ -65,6 +66,7 @@ const Login = () => {
             <span className={`eye-icon ${userData.passwordVisible? "visible" : ""}`} onClick={togglePasswordVisibility}>👁</span>
           </div>
           <button type="submit" className='btn primary'>Login</button>
+          <OAuth/>
           {/* <Link to="/forgot" className="forgot-password-link">Forgot password?</Link> */}
         </form>
         <small>Don't have an account? <Link to="/register">Sign up</Link></small>

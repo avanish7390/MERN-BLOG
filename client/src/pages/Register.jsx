@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import OAuth from '../components/OAuth'
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -56,6 +57,7 @@ const Register = () => {
           <span className={`eye-icon ${passwordVisible? "visible" : ""}`} onClick={togglePasswordVisibility}></span>
           </div>
           <button type="submit" className='btn primary'>Register</button>
+          <OAuth/>
         </form>
         <small>Already have an account?<Link to="/login">Sign in</Link></small>
       </div>

@@ -985,3 +985,30 @@ input, select, textarea{
 
 
 
+.gradient-duotone {
+  background-image: linear-gradient(to right, rgb(106, 239, 244), rgb(223, 249, 94));
+  outline: 1px solid black;
+  padding: 0.5rem 1rem;
+  font-weight:  500;
+  cursor: pointer;
+  display: inline-block;
+  
+
+   /* Adjust the color and size as needed */
+}
+.gradient-duotone:hover {
+  background-image: linear-gradient(to right, rgb(239, 233, 151), rgb(241, 150, 227));
+
+  padding: 0.5rem 1rem;
+  font-weight:  500;
+  cursor: pointer;
+
+
+}
+
+.google{
+  width: 2rem;
+  height: 1rem;
+  ;
+}
+
