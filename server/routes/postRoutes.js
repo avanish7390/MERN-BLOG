@@ -16,5 +16,4 @@ router.patch('/:id', authMiddleware, editPost)
 router.delete('/:id', authMiddleware, deletePost)
 
 
-
 module.exports = router

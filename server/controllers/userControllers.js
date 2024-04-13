@@ -60,15 +60,6 @@ const registerUser = async (req, res, next) => {
    }
 };
 
-
-
-
-
-
-
-
-
-
  //====================== LOGIN A REGISTERED USER 
 //POST : api/users/login
 //UNPROTECTED
@@ -102,13 +93,6 @@ const loginUser = async (req, res, next) => {
     }
  }
 
-
-
-
-
-
-
-
 // ========================  User Profile ============//
 // POST : api/users/:id
 // PROTECTED
@@ -125,15 +109,6 @@ const getUser = async (req, res, next) => {
     return next(new HttpError(error))
    }
 }
-
-
-
-
-
-
-
-
-
 
 // ======================== Change User Avatar (Profile Picture) ============//
 // POST : api/users/change-avatar
@@ -185,13 +160,6 @@ const changeAvatar = async (req, res, next) => {
        return next(new HttpError(error))
     }
  }
-
-
-
-
-
-
-
 
 // ======================== Edit User Details (From Profile) ============//
 // POST : api/users/edit-user
@@ -251,16 +219,6 @@ const editUser = async (req, res, next) => {
      return next(new HttpError(error));
    }
  }
-
-
-
-
-
-
-
-
-
-
 // ======================== Get Authors ============//
 // POST : api/users/authors
 // UNPROTECTED
@@ -272,13 +230,5 @@ const getAuthors = async (req, res, next) => {
     return next(new HttpError(error))
    }
 }
-
-
-
-
-
-
-
-
 
 module.exports = {registerUser, loginUser, getUser, changeAvatar, editUser, getAuthors}

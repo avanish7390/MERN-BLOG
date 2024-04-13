@@ -5,11 +5,6 @@ const fs = require('fs')
 const {v4: uuid} = require('uuid')
 const HttpError = require("../models/errorModel")
 
-
-
-
-
-
 // return next(new HttpError(""))
 
 //==================Create a Post===========
@@ -52,8 +47,6 @@ const createPost = async (req, res, next) => {
 }
 
 
-
-
 //=================Get all Posts===========
 // GET : api/posts
 // UNPROTECTED
@@ -66,8 +59,6 @@ const getPosts = async (req, res, next) => {
      return next(new HttpError(error))
    }
 }
-
-
 
 
 //==================Get single  Post===========
@@ -87,9 +78,6 @@ const getPost = async (req, res, next) => {
 }
 
 
-
-
-
 //==================Get Post by Category===========
 // GET : api/posts/catrgories/:category
 // UNPROTECTED
@@ -103,11 +91,6 @@ const getCatPosts = async (req, res, next) => {
    }
 }
 
-
-
-
-
-
 //=================Get User/Author Post ===========
 // GET : api/posts/users/:id
 // UNPROTECTED
@@ -120,11 +103,6 @@ const getUserPosts = async (req, res, next) => {
         return next(new HttpError(error))
     }
 }
-
-
-
-
-
 
 
 //=================Edit Posts===========
@@ -188,9 +166,6 @@ const editPost = async (req, res, next) => {
 }
 
 
-
-
-
 //=================Delete Posts===========
 // PATCH : api/posts/:id
 // PROTECTED
@@ -225,8 +200,6 @@ const deletePost = async (req, res, next) => {
    
     }
 }
-
-
 
 
 module.exports = {createPost, getCatPosts, getPost, getPosts, getUserPosts, editPost, deletePost}

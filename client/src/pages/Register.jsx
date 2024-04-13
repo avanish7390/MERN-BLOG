@@ -52,12 +52,9 @@ const Register = () => {
             <input type={passwordVisible? "text" : "password"} placeholder='Password' name='password' value={userData.password} onChange={changeInputHandler} />
             <span className={`eye-icon ${passwordVisible? "visible" : ""}`} onClick={togglePasswordVisibility}>👁</span>
           </div>
-          <div className="password-input">
-          <input type={passwordVisible? "text" : "password"} placeholder='Confirm password' name='password2' value={userData.password2} onChange={changeInputHandler} />
-          <span className={`eye-icon ${passwordVisible? "visible" : ""}`} onClick={togglePasswordVisibility}></span>
-          </div>
+          <input type="password" placeholder='Confirm password' name='password2' value={userData.password2} onChange={changeInputHandler} />
           <button type="submit" className='btn primary'>Register</button>
-          <OAuth/>
+          {/* <OAuth/> */}
         </form>
         <small>Already have an account?<Link to="/login">Sign in</Link></small>
       </div>

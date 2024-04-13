@@ -66,7 +66,7 @@ const Login = () => {
             <span className={`eye-icon ${userData.passwordVisible? "visible" : ""}`} onClick={togglePasswordVisibility}>👁</span>
           </div>
           <button type="submit" className='btn primary'>Login</button>
-          <OAuth/>
+          {/* <OAuth/> */}
           {/* <Link to="/forgot" className="forgot-password-link">Forgot password?</Link> */}
         </form>
         <small>Don't have an account? <Link to="/register">Sign up</Link></small>

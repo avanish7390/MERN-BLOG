@@ -1,11 +1,7 @@
-import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import PostItem from './PostItem'
+import React, { useEffect, useState } from 'react'
 import Loader from '../components/Loader'
-
-
-
-
+import PostItem from './PostItem'
 
 const Posts = () => {
     const [posts, setPosts] = useState([])
