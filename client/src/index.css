@@ -146,11 +146,11 @@
 
 body{
   font-family: "Poppins", sans-serif;
-  background: var(--color-bg);
+  /* background: var(--color-bg); */
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--color-gray-700);
-  
+  background: linear-gradient(135deg, #1e9ef4, #c5f65c);
 
 }
 
@@ -348,6 +348,7 @@ footer{
   background: var(--color-gray-900);
   margin-top: 6rem;
   padding-top: 6rem;
+  
 
 }
 
@@ -357,7 +358,8 @@ footer{
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
+  
 
 }
 
@@ -395,6 +397,9 @@ footer{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4rem;
+  padding: 16px;
+
+
 }
 
 
