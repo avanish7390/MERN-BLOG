@@ -18,6 +18,7 @@ import Logout from './pages/Logout';
 import PostDetail from './pages/PostDetail';
 import Register from './pages/Register';
 import UserProfile from './pages/UserProfile';
+import About from './pages/About';
 
 
 
@@ -42,6 +43,8 @@ const router = createBrowserRouter([
     {path: "posts/users/:id", element: <AuthorPosts />},
     {path: "myposts/:id", element: <Dashboard />},
     {path: "logout", element: <Logout />},
+    {path: "about", element: <About />},
+
    ]
   }
 ])

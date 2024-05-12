@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react'
-import {Link} from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { AiOutlineClose } from "react-icons/ai"
+import { FaBars } from "react-icons/fa"
+import { Link } from 'react-router-dom'
 import Logo from '../images/logos.png'
-import {FaBars} from "react-icons/fa"
-import {AiOutlineClose} from "react-icons/ai"
 
 import { UserContext } from '../context/userContext'
 
@@ -28,7 +28,10 @@ const Header = () => {
         <li><Link to={`/profile/${currentUser.id}`} onClick={closeNavHandler}> {currentUser?.name}</Link></li>
         <li><Link to="/create"onClick={closeNavHandler}>Create Post</Link></li>
         <li><Link to="/authors"onClick={closeNavHandler}>Authors</Link></li>
+        <li><Link to="/about"onClick={closeNavHandler}>About</Link></li>
+
         <li><Link to="/logout"onClick={closeNavHandler}>Logout</Link></li>
+        
       </ul>}
 
      {!currentUser?.id && isNavShowing && <ul className="nav__menu">

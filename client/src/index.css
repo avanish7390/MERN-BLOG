@@ -1,3 +1,16 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
 .poppins-thin {
   font-family: "Poppins", sans-serif;
   font-weight: 100;
@@ -146,11 +159,11 @@
 
 body{
   font-family: "Poppins", sans-serif;
-  /* background: var(--color-bg); */
+  background: var(--color-bg);
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--color-gray-700);
-  background: linear-gradient(135deg, #1e9ef4, #c5f65c);
+  /* background: linear-gradient(135deg, #1e9ef4, #c5f65c); */
 
 }
 
@@ -800,6 +813,13 @@ input, select, textarea{
     transform-origin: top;
   }
 
+
+     
+
+
+
+
+
   @keyframes dropDown {
     to {
       opacity: 1;
@@ -812,6 +832,9 @@ input, select, textarea{
   }
 
   .nav__menu li:nth-child(3) {
+    animation-delay: 600ms;
+  }
+  .nav__menu li:nth-child(4) {
     animation-delay: 600ms;
   }
 
@@ -1014,6 +1037,59 @@ input, select, textarea{
 .google{
   width: 2rem;
   height: 1rem;
-  ;
+  
 }
+
+
+
+
+
+.about {
+
+  margin: 5rem;
+  padding: 20px;
+}
+
+/* .aboutus{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+} */
+.about h1 {
+  align-items: center;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.about p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.about h3 {
+  font-size: 1.8rem;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.about ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.about li {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+/* Optional: Style the list items differently */
+.about li{
+  color: #333; /* Change color */
+  font-weight: bold; /* Change font weight */
+}
+
+
 

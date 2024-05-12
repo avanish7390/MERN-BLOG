@@ -15,6 +15,7 @@ const Footer = () => {
       <li><Link to="posts/categories/Weather">Weather</Link></li>
     </ul>
     <div className="div footer__copyright">
+      
       <small>All Right Reserved &copy; Copyright, Blogosphere Foundry.</small>
     </div>
    </footer>
